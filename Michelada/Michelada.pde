@@ -1,4 +1,4 @@
-PImage player, p_low, player1, bird, p_low2;
+PImage player, p_low, player1, bird, p_low2, backgroundimg, play, quit, instructions, instructions2;
 ArrayList<Obstacle> obstacles = new ArrayList<Obstacle>();
 ArrayList<Bird> birds = new ArrayList<Bird>();
 int obstacleTimer = 0;
@@ -27,17 +27,35 @@ void setup() {
 }
 
 void initGame() {
+  background(241, 90, 36);
+  backgroundimg = loadImage("background.png");
+  image(backgroundimg, 0, 0);
+  play= loadImage("play.png");
+  image(play, width/2-play.width/2, height-play.height); 
+  quit= loadImage("quit.png");
+  image(quit, width/2+quit.width, height-quit.height);
+  instructions= loadImage("instructions.png");
+  image(instructions, width-instructions.width, 0);
+  if (mousePressed) {
+    if ((mouseX>width/2-play.width/2)&&(mouseY>height-play.height)&&(mouseX<width/2+play.width/2)&&(mouseY<height))
+    {
+      state = "play";
+    }
+    if ((mouseX>width/2+quit.width)&&(mouseY>height-quit.height)&&(mouseX<width/2+quit.width*2)&&(mouseY<height))
+    {
+      exit();
+    }
+  }
+  if ((mouseX>width-instructions.width)&&(mouseY>0)&&(mouseX<width)&&(mouseY<instructions.height))
+  {
+    instructions2= loadImage("instructions2.png");
+    image(instructions2, width/2-instructions2.width/2, height/2-instructions2.height/2);
+  }
 }
 
 void draw() {
   if (state=="menu") {
     initGame();
-    String s = "O Jorge é um paneleiro";
-    fill(50);
-    text(s, 10, 10, 70, 80);
-    if (mousePressed) {
-      state = "play";
-    }
   }
   if (state == "play") {
     game_display();
@@ -95,6 +113,8 @@ void game_display() {
 void level() {
   for (int i=1; i<20; i++) {
     if ( pl.score == 400*i) {
+      noLoop();
+      level_up();
       lvl++;
       speed++;
       pb=pb+2*i;
@@ -139,6 +159,7 @@ void mousePressed() {
     pl.bump = false;
     playerXpos += 100;
   }
+  loop();
 }
 void showObstacles() {
   for (int i = 0; i < obstacles.size(); i++) {
@@ -176,6 +197,13 @@ void moveObstacles() {
   }
 }
 
+void level_up() {
+  rectMode(CENTER);
+  fill(255);
+  rect(width/2, height/2, width-20, height - 20);
+  textSize(16);
+  text("Level up", width/2, 230);
+}
 void reset() {
   pl = new Player();
   obstacles = new ArrayList<Obstacle>();

@@ -11,7 +11,7 @@ class Bird {
     type = t;
     switch(t) {
     case 0: 
-      posY = 120; //mais baixo
+      posY = 150; //mais baixo
       break;
     case 1: 
       posY = 150;
