@@ -88,6 +88,7 @@ void game_display() {
   fill(0);
   text("Score: " + pl.score, 5, 20);
   text("Level: " + lvl, 5, 40);
+  text("Lifes: " + pl.lf, 5, 60);
   text("High Score: " + highScore, width - (140 + (str(highScore).length() * 10)), 20);
 }
 
@@ -116,6 +117,13 @@ void updateObstacles() {
     }
     moveObstacles();
     pl.update();
+    if (pl.bump == true) {
+      noLoop();
+      textSize(32);
+      text(pl.lf, width/2, 200);
+      textSize(16);
+      text("Click to continue!", width/2, 230);
+    }
   } else {
     textSize(32);
     fill(0);
@@ -125,6 +133,13 @@ void updateObstacles() {
   }
 }
 
+void mousePressed() {
+  if (pl.bump == true) {
+    loop();
+    pl.bump = false;
+    playerXpos += 100;
+  }
+}
 void showObstacles() {
   for (int i = 0; i < obstacles.size(); i++) {
     obstacles.get(i).show();
@@ -135,8 +150,6 @@ void showObstacles() {
 }
 
 void addObstacle(float pb) {
-  //println(lvl);
-  //println(pb);
   if (random(100) < pb) { //Probabilidade de aparecer um obstáculo vai aumentando de nível para nível
     obstacles.add(new Obstacle(floor(random(2)))); //Dos 3 tipos de obstáculos possíveis seleciona 1
   } else {
@@ -173,4 +186,5 @@ void reset() {
   speed = 10;
   lvl = 0;
   pb = 70;
+  playerXpos = 100;
 }

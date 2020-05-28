@@ -5,6 +5,7 @@ class Player {
   int size = 20;
   boolean duck = false;
   boolean dead = false;
+  boolean bump = false;
   int lifespan;
   int score;
   int runCount = -5;
@@ -12,6 +13,8 @@ class Player {
   int h = player.height/2;
   int w_low = p_low.width/2;
   int h_low = p_low.height/2;
+  int lf = 3;
+
 
   Player() {
   }
@@ -30,8 +33,7 @@ class Player {
       } else {
         image(p_low2, playerXpos - w/2, height - groundHeight - (posY + h_low), w_low, h_low);
       }
-    } 
-    else { //jogador pode estar no solo ou no ar 
+    } else { //jogador pode estar no solo ou no ar 
       if (posY == 0) { //jogador está no solo 
         if (runCount < 0) {
           image(player, playerXpos-w/2, height - groundHeight - (posY + h), w, h);
@@ -51,7 +53,6 @@ class Player {
   }
 
   void move() {
-    println(posY);
     posY += velY;
     if (posY > 0) {
       velY -= gravity;
@@ -63,11 +64,11 @@ class Player {
     for (int i = 0; i < obstacles.size(); i++) {
       if (dead) {
         if (obstacles.get(i).collided(playerXpos, posY + h_low/2, w_low*0.5, h_low)) {
-          dead = true;
+          bump = true;
         }
       } else {
         if (obstacles.get(i).collided(playerXpos, posY + h/2, w*0.5, h)) {
-          dead = true;
+          bump = true;
         }
       }
     }
@@ -82,6 +83,13 @@ class Player {
           dead = true;
         }
       }
+    }
+    if (bump == true) {
+      lf -= 1;
+    }
+
+    if (lf == 0) {
+      dead= true;
     }
   }
 

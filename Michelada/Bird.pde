@@ -14,7 +14,7 @@ class Bird {
       posY = 120; //mais baixo
       break;
     case 1: 
-      posY = 120;
+      posY = 150;
       break;
     }
   }
