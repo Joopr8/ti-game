@@ -10,9 +10,9 @@ class Player {
   int score;
   int runCount = -5;
   int w = player.width/2;
-  int h = player.height/2;
+  int h = player.height/2; //137
   int w_low = p_low.width/2;
-  int h_low = p_low.height/2;
+  int h_low = p_low.height/2; //102
 
 
   Player() {
@@ -26,6 +26,7 @@ class Player {
   }
 
   void show() {
+    println(h_low);
     if (duck && posY == 0) { //quando o jogador está baixo
       if (runCount < 0) {
         image(p_low, playerXpos - w/2, height - groundHeight - (posY + h_low), w_low, h_low);

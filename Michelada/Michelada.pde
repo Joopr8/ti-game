@@ -1,4 +1,4 @@
-PImage player, p_low, player1, bird, p_low2, backgroundimg, play, quit, instructions, instructions2, cloud;
+PImage player, p_low, player1, bird, p_low2, backgroundimg, play, quit, instructions, instructions2, cloud, obs1, obs2, obs3, obs4, obs5;
 ArrayList<Obstacle> obstacles = new ArrayList<Obstacle>();
 ArrayList<Bird> birds = new ArrayList<Bird>();
 ArrayList<Cloud> clouds = new ArrayList<Cloud>();
@@ -13,7 +13,7 @@ int highScore = 0;
 int lvl=0;
 float pb=70;
 String state="menu";
-int lf = 1;
+int lf = 3;
 
 
 Player pl;
@@ -30,6 +30,11 @@ void setup() {
   play= loadImage("play.png");
   quit= loadImage("quit.png");
   cloud = loadImage("nuvens.png");
+  obs1 = loadImage("obs1.png");
+  obs2 = loadImage("obs2.png");
+  obs3 = loadImage("obs3.png");
+  obs4 = loadImage("obs4.png");
+  obs5 = loadImage("obs5.png");
   pl = new Player();
 }
 
@@ -199,7 +204,7 @@ void addObstacle(float pb) {
   if (random(100) < pb) { //Probabilidade de aparecer um obstáculo vai aumentando de nível para nível
     obstacles.add(new Obstacle(floor(random(2))));//Dos 3 tipos de obstáculos possíveis seleciona 1
   } else {
-    birds.add(new Bird(floor(random(2))));
+    birds.add(new Bird(floor(random(5))));
   }
   if (random(100) < pb) {
     clouds.add(new Cloud(floor(random(2))));
