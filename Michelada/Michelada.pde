@@ -34,7 +34,7 @@ void setup() {
 }
 
 void initGame() {
-  background(241, 90, 36);
+  background(200, 90, 36);
   backgroundimg = loadImage("background.png");
   image(backgroundimg, 0, 0);
 
