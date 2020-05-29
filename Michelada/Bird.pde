@@ -1,6 +1,6 @@
 class Bird {
   float w = 60;
-  float h = 50;
+  float h = 90;
   float posX, posY;
   int flapCount = 0;
   int y= 150;
@@ -12,9 +12,23 @@ class Bird {
     switch(t) {
     case 0: 
       posY = 150; //mais baixo
+      image(obs1, w,h);
       break;
     case 1: 
       posY = 150;
+      image(obs2, w,h);
+      break;
+      case 2: 
+      posY = 150;
+      image(obs3, w,h);
+      break;
+      case 3: 
+      posY = 150;
+      image(obs4, w,h);
+      break;
+      case 4: 
+      posY = 150;
+      image(obs5, w,h);
       break;
     }
   }
@@ -30,7 +44,7 @@ class Bird {
      if(flapCount > 15){
      flapCount = -15;
      }*/
-    image(bird, posX, height - groundHeight - (posY + h ), w, h);
+    //image(bird, posX, height - groundHeight - (posY + h ), w, h);
   }
 
   void move(float speed) {

@@ -1,4 +1,4 @@
-PImage player, p_low, player1, bird, p_low2, backgroundimg, play, quit, instructions, instructions2, cloud;
+PImage player, p_low, player1, bird, p_low2, backgroundimg, play, quit, instructions, instructions2, cloud, obs1, obs2, obs3, obs4, obs5;
 ArrayList<Obstacle> obstacles = new ArrayList<Obstacle>();
 ArrayList<Bird> birds = new ArrayList<Bird>();
 ArrayList<Cloud> clouds = new ArrayList<Cloud>();
@@ -30,6 +30,11 @@ void setup() {
   play= loadImage("play.png");
   quit= loadImage("quit.png");
   cloud = loadImage("nuvens.png");
+  obs1 = loadImage("obs1.png");
+  obs2 = loadImage("obs2.png");
+  obs3 = loadImage("obs3.png");
+  obs4 = loadImage("obs4.png");
+  obs5 = loadImage("obs5.png");
   pl = new Player();
 }
 

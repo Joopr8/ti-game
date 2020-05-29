@@ -2,8 +2,8 @@ class Obstacle {
   float posX;
   int type;
   float ts = random(90,200);
-  int w = 30; //ajustar estes valores
-  int h = 70;
+  int w = 60; //ajustar estes valores
+  int h = 90;
 
   Obstacle(int t) {
     posX = width;
@@ -13,16 +13,19 @@ class Obstacle {
   void show() {
     switch(type) {
     case 0:
-      color(60);
-      rect(posX - w/2, height-h-groundHeight, w, h);
+      image(obs1, posX - w/2, height-h-groundHeight, w,h);
       break;
     case 1:
-      color(60);
-      rect(posX - w/2, height-h-groundHeight, w*2, h);
+      image(obs2, posX - w/2, height-h-groundHeight, w,h);
       break;
     case 2:
-      color(60);
-      rect(posX - w/2, height-h-groundHeight, w*6, h);
+      image(obs3, posX - w/2, height-h-groundHeight, w,h);
+      break;
+      case 3:
+      image(obs4, posX - w/2, height-h-groundHeight, w,h);
+      break;
+      case 4:
+      image(obs5, posX - w/2, height-h-groundHeight, w,h);
       break;
     }
   }
