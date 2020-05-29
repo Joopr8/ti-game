@@ -13,7 +13,7 @@ int highScore = 0;
 int lvl=0;
 float pb=70;
 String state="menu";
-int lf = 3;
+int lf = 1;
 
 
 Player pl;
@@ -37,10 +37,8 @@ void initGame() {
   background(241, 90, 36);
   backgroundimg = loadImage("background.png");
   image(backgroundimg, 0, 0);
-
   image(play, width/2-play.width/2, height-play.height); 
   image(quit, width/2+quit.width, height-quit.height);
-
   image(instructions, width-instructions.width, 0);
   if (mousePressed) {
     if ((mouseX>width/2-play.width/2)&&(mouseY>height-play.height)&&(mouseX<width/2+play.width/2)&&(mouseY<height))
@@ -81,7 +79,7 @@ void keyPressed() {
   case 'b': 
     if (!pl.dead) {
       pl.ducking(true);
-    }
+    }  
     break;
   }
 }
@@ -96,6 +94,7 @@ void keyReleased() {
   case 'r': 
     if (pl.dead) {
       reset();
+      loop();
     }
     break;
   }
@@ -146,22 +145,24 @@ void updateObstacles() {
     pl.update();
     if (pl.bump == true) {
       noLoop();
-      lf-=1;
-      textSize(32);
-      text(lf, width/2, height/2);
-      textSize(16);
-      textAlign(CENTER);
-      text("Click to continue!", width/2, 20);
+      lf -= 1;
+      //textSize(32);
+      //text(lf, width/2, height/2);
+      //textSize(16);
+      //textAlign(CENTER);
+      //text("Click to continue!", width/2, 20);
     }
   } 
   if (lf == 0) {
     pl.dead = true;
     pl.bump = false;
     textSize(32);
+    textAlign(CENTER);   
     fill(0);
     text("YOU DEAD! GIT GUD SCRUB!", width/2, 200);
     textSize(16);
     text("(Press 'r' to restart!)", width/2, 230);
+    noLoop();
   }
 }
 
@@ -171,12 +172,15 @@ void mousePressed() {
     pl.bump = false;
     playerXpos += 100;
   }
+  if (pl.dead == true) {
+    reset();
+  }
 }
 
 void level_up() {
-  fill(255);
-  textSize(16);
-  text("Level up", width/2, 230);
+  //fill(255);
+  //textSize(16);
+  //text("Level up", width/2, 230);
 }
 
 void showObstacles() {
@@ -197,9 +201,9 @@ void addObstacle(float pb) {
   } else {
     birds.add(new Bird(floor(random(2))));
   }
-  if(random(100) < pb){
-  clouds.add(new Cloud(floor(random(2))));
-}
+  if (random(100) < pb) {
+    clouds.add(new Cloud(floor(random(2))));
+  }
   randomAddition = floor(random(50));
   obstacleTimer = 0;
 }
@@ -229,10 +233,12 @@ void moveObstacles() {
 }
 
 void reset() {
-  loop();
+  pl.bump = false;
+  pl.dead = false;
   pl = new Player();
   obstacles = new ArrayList<Obstacle>();
   birds = new ArrayList<Bird>();
+  clouds = new ArrayList<Cloud>();
   obstacleTimer = 0;
   randomAddition = floor(random(50));
   groundCounter = 0;
@@ -240,4 +246,5 @@ void reset() {
   lvl = 0;
   pb = 70;
   playerXpos = 100;
+  lf = 3;
 }

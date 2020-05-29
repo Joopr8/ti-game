@@ -75,11 +75,11 @@ class Player {
     for (int i = 0; i < birds.size(); i++) {
       if (duck && posY == 0) {
         if (birds.get(i).collided(playerXpos, posY + h_low/2, w_low * 0.5, h_low)) {
-          dead = true;
+          bump = true;
         }
       } else {
         if (birds.get(i).collided(playerXpos, posY + h/2 * 0.5, w, h)) {
-          dead = true;
+          bump = true;
         }
       }
     }
