@@ -1,6 +1,7 @@
-PImage player, p_low, player1, bird, p_low2, backgroundimg, play, quit, instructions, instructions2;
+PImage player, p_low, player1, bird, p_low2, backgroundimg, play, quit, instructions, instructions2, cloud;
 ArrayList<Obstacle> obstacles = new ArrayList<Obstacle>();
 ArrayList<Bird> birds = new ArrayList<Bird>();
+ArrayList<Cloud> clouds = new ArrayList<Cloud>();
 int obstacleTimer = 0;
 int minTimeBetObs = 60;
 int randomAddition = 0;
@@ -12,6 +13,8 @@ int highScore = 0;
 int lvl=0;
 float pb=70;
 String state="menu";
+int lf = 3;
+
 
 Player pl;
 
@@ -23,6 +26,10 @@ void setup() {
   p_low = loadImage("chao1.png");
   p_low2 = loadImage("chao2.png");
   bird = loadImage("vidas.png");
+  instructions= loadImage("instructions.png");
+  play= loadImage("play.png");
+  quit= loadImage("quit.png");
+  cloud = loadImage("nuvens.png");
   pl = new Player();
 }
 
@@ -30,11 +37,10 @@ void initGame() {
   background(241, 90, 36);
   backgroundimg = loadImage("background.png");
   image(backgroundimg, 0, 0);
-  play= loadImage("play.png");
+
   image(play, width/2-play.width/2, height-play.height); 
-  quit= loadImage("quit.png");
   image(quit, width/2+quit.width, height-quit.height);
-  instructions= loadImage("instructions.png");
+
   image(instructions, width-instructions.width, 0);
   if (mousePressed) {
     if ((mouseX>width/2-play.width/2)&&(mouseY>height-play.height)&&(mouseX<width/2+play.width/2)&&(mouseY<height))
@@ -104,16 +110,17 @@ void game_display() {
   rect(0, height - groundHeight, width, 10);
   textSize(20);
   fill(0);
+  textAlign(LEFT);
   text("Score: " + pl.score, 5, 20);
   text("Level: " + lvl, 5, 40);
-  text("Lifes: " + pl.lf, 5, 60);
+  text("Lifes: " + lf, 5, 60);
   text("High Score: " + highScore, width - (140 + (str(highScore).length() * 10)), 20);
 }
 
 void level() {
   for (int i=1; i<20; i++) {
     if ( pl.score == 400*i) {
-      noLoop();
+      //noLoop();
       level_up();
       lvl++;
       speed++;
@@ -139,17 +146,22 @@ void updateObstacles() {
     pl.update();
     if (pl.bump == true) {
       noLoop();
+      lf-=1;
       textSize(32);
-      text(pl.lf, width/2, 200);
+      text(lf, width/2, height/2);
       textSize(16);
-      text("Click to continue!", width/2, 230);
+      textAlign(CENTER);
+      text("Click to continue!", width/2, 20);
     }
-  } else {
+  } 
+  if (lf == 0) {
+    pl.dead = true;
+    pl.bump = false;
     textSize(32);
     fill(0);
-    text("YOU DEAD! GIT GUD SCRUB!", 180, 200);
+    text("YOU DEAD! GIT GUD SCRUB!", width/2, 200);
     textSize(16);
-    text("(Press 'r' to restart!)", 330, 230);
+    text("(Press 'r' to restart!)", width/2, 230);
   }
 }
 
@@ -159,8 +171,14 @@ void mousePressed() {
     pl.bump = false;
     playerXpos += 100;
   }
-  loop();
 }
+
+void level_up() {
+  fill(255);
+  textSize(16);
+  text("Level up", width/2, 230);
+}
+
 void showObstacles() {
   for (int i = 0; i < obstacles.size(); i++) {
     obstacles.get(i).show();
@@ -168,14 +186,20 @@ void showObstacles() {
   for (int i=0; i < birds.size(); i++) {
     birds.get(i).show();
   }
+  for (int i=0; i < clouds.size(); i++) {
+    clouds.get(i).show();
+  }
 }
 
 void addObstacle(float pb) {
   if (random(100) < pb) { //Probabilidade de aparecer um obstáculo vai aumentando de nível para nível
-    obstacles.add(new Obstacle(floor(random(2)))); //Dos 3 tipos de obstáculos possíveis seleciona 1
+    obstacles.add(new Obstacle(floor(random(2))));//Dos 3 tipos de obstáculos possíveis seleciona 1
   } else {
     birds.add(new Bird(floor(random(2))));
   }
+  if(random(100) < pb){
+  clouds.add(new Cloud(floor(random(2))));
+}
   randomAddition = floor(random(50));
   obstacleTimer = 0;
 }
@@ -195,16 +219,17 @@ void moveObstacles() {
       i--;
     }
   }
+  for (int i = 0; i < clouds.size(); i++) {
+    clouds.get(i).move(speed);
+    if (clouds.get(i).posX < -playerXpos*10) { 
+      clouds.remove(i);
+      i--;
+    }
+  }
 }
 
-void level_up() {
-  rectMode(CENTER);
-  fill(255);
-  rect(width/2, height/2, width-20, height - 20);
-  textSize(16);
-  text("Level up", width/2, 230);
-}
 void reset() {
+  loop();
   pl = new Player();
   obstacles = new ArrayList<Obstacle>();
   birds = new ArrayList<Bird>();

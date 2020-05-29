@@ -13,7 +13,6 @@ class Player {
   int h = player.height/2;
   int w_low = p_low.width/2;
   int h_low = p_low.height/2;
-  int lf = 3;
 
 
   Player() {
@@ -83,13 +82,6 @@ class Player {
           dead = true;
         }
       }
-    }
-    if (bump == true) {
-      lf -= 1;
-    }
-
-    if (lf == 0) {
-      dead= true;
     }
   }
 
