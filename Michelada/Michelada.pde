@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-PImage player, p_low, player1, bird, p_low2, backgroundimg, play, quit, instructions, instructions2, cloud, obs1, obs2, obs3, obs4, obs5;
-=======
-PImage player, p_low, player1, bird, p_low2, backgroundimg, play, quit, instructions, instructions2, cloud, obs1, obs2, obs3, obs4, obs5, lvl1;
->>>>>>> 26ca157501222219f7d24c439c09a35ac1e62726
+PImage player, p_low, player1, bird, p_low2, backgroundimg, play, quit, instructions, instructions2, cloud, obs1, obs2, obs3, obs4, obs5, lvl1, gif, gif2, gif3;
 ArrayList<Obstacle> obstacles = new ArrayList<Obstacle>();
 ArrayList<Bird> birds = new ArrayList<Bird>();
 ArrayList<Cloud> clouds = new ArrayList<Cloud>();
@@ -19,6 +15,7 @@ float pb=70;
 String state="menu";
 int lf = 3;
 boolean level_up = false;
+PFont f;
 
 
 Player pl;
@@ -40,11 +37,12 @@ void setup() {
   obs3 = loadImage("obs3.png");
   obs4 = loadImage("obs4.png");
   obs5 = loadImage("obs5.png");
-<<<<<<< HEAD
-=======
   lvl1 = loadImage("popup1.png");
->>>>>>> 26ca157501222219f7d24c439c09a35ac1e62726
   pl = new Player();
+  f = createFont("ArcadeClassic", 30);
+  gif = loadImage("gif.png");
+  gif2 = loadImage("gif2.png");
+  gif3 = loadImage("gif3.png");
 }
 
 void initGame() {
@@ -138,10 +136,12 @@ void game_display() {
   textSize(20);
   fill(0);
   textAlign(LEFT);
-  text("Score: " + pl.score, 5, 20);
-  text("Level: " + lvl, 5, 40);
-  text("Lifes: " + lf, 5, 60);
-  text("High Score: " + highScore, width - (140 + (str(highScore).length() * 10)), 20);
+    textFont(f);
+
+  //text("Score: " + pl.score, 5, 20);
+  text("Level: " + lvl, 5, 20);
+  text("Lifes: " + lf, 5, 40);
+  text("High Score: " + highScore, width - (220 + (str(highScore).length() * 10)), 20);
 }
 
 void level() {
@@ -176,18 +176,28 @@ void updateObstacles() {
     if (pl.bump == true) {
       noLoop();
       lf -= 1;
+      if(lf==2){
+      imageMode(CENTER);
+      image(gif,width/2, height/2);
+      }
+      else if (lf==1){
+        imageMode(CENTER);
+      image(gif2,width/2, height/2);
+      }
       //
     }
   } 
   if (lf == 0) {
     pl.dead = true;
     pl.bump = false;
-    textSize(32);
-    textAlign(CENTER);   
-    fill(0);
-    text("YOU DEAD! GIT GUD SCRUB!", width/2, 200);
-    textSize(16);
-    text("(Press 'r' to restart!)", width/2, 230);
+    imageMode(CENTER);
+    image(gif3,width/2, height/2); 
+    //textSize(32);
+    //textAlign(CENTER);   
+    //fill(0);
+    //text("YOU DEAD! GIT GUD SCRUB!", width/2, 200);
+    //textSize(16);
+    //text("(Press 'r' to restart!)", width/2, 230);
     noLoop();
   }
 }
