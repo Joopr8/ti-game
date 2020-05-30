@@ -11,6 +11,7 @@ class Cloud {
   }
 
   void show() {
+    imageMode(CORNER);
     switch(type) {
     case 0:
       image(cloud, posX, 50);

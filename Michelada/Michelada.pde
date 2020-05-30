@@ -1,4 +1,4 @@
-PImage player, p_low, player1, bird, p_low2, backgroundimg, play, quit, instructions, instructions2, cloud, obs1, obs2, obs3, obs4, obs5;
+PImage player, p_low, player1, bird, p_low2, backgroundimg, play, quit, instructions, instructions2, cloud, obs1, obs2, obs3, obs4, obs5, lvl1;
 ArrayList<Obstacle> obstacles = new ArrayList<Obstacle>();
 ArrayList<Bird> birds = new ArrayList<Bird>();
 ArrayList<Cloud> clouds = new ArrayList<Cloud>();
@@ -14,6 +14,7 @@ int lvl=0;
 float pb=70;
 String state="menu";
 int lf = 3;
+boolean level_up = false;
 
 
 Player pl;
@@ -35,6 +36,7 @@ void setup() {
   obs3 = loadImage("obs3.png");
   obs4 = loadImage("obs4.png");
   obs5 = loadImage("obs5.png");
+  lvl1 = loadImage("popup1.png");
   pl = new Player();
 }
 
@@ -105,9 +107,24 @@ void keyReleased() {
   }
 }
 
+void mousePressed() {
+  if (level_up == true) {
+    loop();
+  }
+  if (pl.bump == true) {
+    loop();
+    pl.bump = false;
+    playerXpos += 100;
+  }
+  if (pl.dead == true) {
+    reset();
+  }
+}
+
 void game_display() {
   noStroke();
   background(106, 190, 219);
+  rectMode(CORNER);
   fill(96, 56, 19);
   rect(0, height - groundHeight, width, height - groundHeight);
   fill(66, 33, 11);
@@ -124,8 +141,17 @@ void game_display() {
 void level() {
   for (int i=1; i<20; i++) {
     if ( pl.score == 400*i) {
-      //noLoop();
-      level_up();
+      noLoop();
+      level_up = true;
+      //textAlign(CENTER);
+      //color(0);
+      //text("LEVEL UP - Click to continue!", width/2, height/2);
+      //rectMode(CENTER);
+      //fill(255);
+      //rect(width/2, height/2, 200, 200);
+      //textSize(16);
+      imageMode(CENTER);
+      image(lvl1,width/2, height/2);
       lvl++;
       speed++;
       pb=pb+2*i;
@@ -169,23 +195,6 @@ void updateObstacles() {
     text("(Press 'r' to restart!)", width/2, 230);
     noLoop();
   }
-}
-
-void mousePressed() {
-  if (pl.bump == true) {
-    loop();
-    pl.bump = false;
-    playerXpos += 100;
-  }
-  if (pl.dead == true) {
-    reset();
-  }
-}
-
-void level_up() {
-  //fill(255);
-  //textSize(16);
-  //text("Level up", width/2, 230);
 }
 
 void showObstacles() {

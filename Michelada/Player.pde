@@ -26,7 +26,7 @@ class Player {
   }
 
   void show() {
-    println(h_low);
+    imageMode(CORNER);
     if (duck && posY == 0) { //quando o jogador está baixo
       if (runCount < 0) {
         image(p_low, playerXpos - w/2, height - groundHeight - (posY + h_low), w_low, h_low);
