@@ -1,7 +1,7 @@
 class Player {
   float posY = 200;
   float velY = 0;
-  float gravity = 1.2;
+  float gravity = 0.8;
   int size = 20;
   boolean duck = false;
   boolean dead = false;
@@ -20,7 +20,7 @@ class Player {
 
   void jump() {
     if (posY == 0) {
-      gravity = 1.2;
+      gravity = 0.8;
       velY = 16;
     }
   }

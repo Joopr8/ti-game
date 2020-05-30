@@ -70,8 +70,10 @@ void draw() {
   }
   if (state == "play") {
     game_display();
-    level();
     updateObstacles(); 
+    level();
+    println(pb);
+
     if (pl.score > highScore) { //Upadate do melhor resultad
       highScore = pl.score;
     }
@@ -116,9 +118,6 @@ void mousePressed() {
     pl.bump = false;
     playerXpos += 100;
   }
-  if (pl.dead == true) {
-    reset();
-  }
 }
 
 void game_display() {
@@ -143,15 +142,8 @@ void level() {
     if ( pl.score == 400*i) {
       noLoop();
       level_up = true;
-      //textAlign(CENTER);
-      //color(0);
-      //text("LEVEL UP - Click to continue!", width/2, height/2);
-      //rectMode(CENTER);
-      //fill(255);
-      //rect(width/2, height/2, 200, 200);
-      //textSize(16);
       imageMode(CENTER);
-      image(lvl1,width/2, height/2);
+      image(lvl1, width/2, height/2);
       lvl++;
       speed++;
       pb=pb+2*i;
@@ -177,11 +169,7 @@ void updateObstacles() {
     if (pl.bump == true) {
       noLoop();
       lf -= 1;
-      //textSize(32);
-      //text(lf, width/2, height/2);
-      //textSize(16);
-      //textAlign(CENTER);
-      //text("Click to continue!", width/2, 20);
+      //
     }
   } 
   if (lf == 0) {
@@ -210,17 +198,18 @@ void showObstacles() {
 }
 
 void addObstacle(float pb) {
+  if (random(100) < pb) {
+    clouds.add(new Cloud(floor(random(2))));
+  }
   if (random(100) < pb) { //Probabilidade de aparecer um obstáculo vai aumentando de nível para nível
     obstacles.add(new Obstacle(floor(random(2))));//Dos 3 tipos de obstáculos possíveis seleciona 1
   } else {
     birds.add(new Bird(floor(random(5))));
   }
-  if (random(100) < pb) {
-    clouds.add(new Cloud(floor(random(2))));
-  }
   randomAddition = floor(random(50));
   obstacleTimer = 0;
 }
+
 
 void moveObstacles() {
   for (int i = 0; i < obstacles.size(); i++) {
