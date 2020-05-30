@@ -1,7 +1,7 @@
 class Player {
   float posY = 200;
   float velY = 0;
-  float gravity = 1.2;
+  float gravity = 0.8;
   int size = 20;
   boolean duck = false;
   boolean dead = false;
@@ -10,9 +10,9 @@ class Player {
   int score;
   int runCount = -5;
   int w = player.width/2;
-  int h = player.height/2;
+  int h = player.height/2; //137
   int w_low = p_low.width/2;
-  int h_low = p_low.height/2;
+  int h_low = p_low.height/2; //102
 
 
   Player() {
@@ -20,12 +20,13 @@ class Player {
 
   void jump() {
     if (posY == 0) {
-      gravity = 1.2;
+      gravity = 0.8;
       velY = 16;
     }
   }
 
   void show() {
+    imageMode(CORNER);
     if (duck && posY == 0) { //quando o jogador está baixo
       if (runCount < 0) {
         image(p_low, playerXpos - w/2, height - groundHeight - (posY + h_low), w_low, h_low);
@@ -75,11 +76,11 @@ class Player {
     for (int i = 0; i < birds.size(); i++) {
       if (duck && posY == 0) {
         if (birds.get(i).collided(playerXpos, posY + h_low/2, w_low * 0.5, h_low)) {
-          dead = true;
+          bump = true;
         }
       } else {
         if (birds.get(i).collided(playerXpos, posY + h/2 * 0.5, w, h)) {
-          dead = true;
+          bump = true;
         }
       }
     }

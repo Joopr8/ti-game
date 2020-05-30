@@ -15,6 +15,7 @@ class Bird {
       image(obs1, w,h);
       break;
     case 1: 
+<<<<<<< HEAD
       posY = 150;
       image(obs2, w,h);
       break;
@@ -29,12 +30,26 @@ class Bird {
       case 4: 
       posY = 150;
       image(obs5, w,h);
+=======
+      posY = 160;
+      break;
+    case 2: 
+      posY = 170;
+      break;
+    case 3: 
+      posY = 175;
+      break;
+    case 4: 
+      posY = 180;
+>>>>>>> 26ca157501222219f7d24c439c09a35ac1e62726
       break;
     }
   }
 
   void show() {
+    println(flapCount);
     flapCount++;
+<<<<<<< HEAD
     /*if(flapCount < 0){
      image(bird, posX - bird.width / 2, height - groundHeight - (posY + bird.height - 20));
      }
@@ -45,6 +60,26 @@ class Bird {
      flapCount = -15;
      }*/
     //image(bird, posX, height - groundHeight - (posY + h ), w, h);
+=======
+    if (flapCount <= 10) {
+      image(obs1, posX - obs1.width / 2, height - groundHeight - (posY + obs1.height), w, h);
+    }
+    if (flapCount <= 20 && flapCount > 10 ) {
+      image(obs2, posX - obs2.width / 2, height - groundHeight - (posY + obs2.height), w, h);
+    }
+    if (flapCount <= 30 && flapCount > 20 ) {
+      image(obs3, posX - obs2.width / 2, height - groundHeight - (posY + obs3.height), w, h);
+    }
+    if (flapCount <= 40 && flapCount > 30 ) {
+      image(obs4, posX - obs2.width / 2, height - groundHeight - (posY + obs4.height), w, h);
+    }
+    if (flapCount <= 50 && flapCount > 40 ) {
+      image(obs5, posX - obs2.width / 2, height - groundHeight - (posY + obs5.height), w, h);
+    }
+    if (flapCount > 50) {
+      flapCount = 0;
+    }
+>>>>>>> 26ca157501222219f7d24c439c09a35ac1e62726
   }
 
   void move(float speed) {
