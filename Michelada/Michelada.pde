@@ -1,4 +1,4 @@
-PImage player, p_low, player1, bird, p_low2, backgroundimg, play, quit, instructions, instructions2, cloud, obs1, obs2, obs3, obs4, obs5, lvl1, lvl2, lvl3, lvl4, lvl5, gif, gif2, gif3, square, square2;
+PImage player, p_low, player1, bird, p_low2, backgroundimg, play, quit, instructions, instructions2, cloud, obs1, obs2, obs3, obs4, obs5, lvl1, lvl2, lvl3, lvl4, lvl5, gif, gif2, gif3, square, square2, montanhas;
 ArrayList<Obstacle> obstacles = new ArrayList<Obstacle>();
 ArrayList<Bird> birds = new ArrayList<Bird>();
 ArrayList<Cloud> clouds = new ArrayList<Cloud>();
@@ -49,6 +49,7 @@ void setup() {
   gif3 = loadImage("gif3.png");
   square = loadImage("square.png");
   square2 = loadImage("square2.png");
+  montanhas = loadImage("montanhas.png");
 }
 
 void initGame() {
@@ -59,17 +60,14 @@ void initGame() {
   image(quit, width/2+quit.width, height-quit.height);
   image(instructions, width-instructions.width, 0);
   if (mousePressed) {
-    if ((mouseX>width/2-play.width/2)&&(mouseY>height-play.height)&&(mouseX<width/2+play.width/2)&&(mouseY<height))
-    {
+    if ((mouseX>width/2-play.width/2)&&(mouseY>height-play.height)&&(mouseX<width/2+play.width/2)&&(mouseY<height)) {
       state = "play";
     }
-    if ((mouseX>width/2+quit.width)&&(mouseY>height-quit.height)&&(mouseX<width/2+quit.width*2)&&(mouseY<height))
-    {
+    if ((mouseX>width/2+quit.width)&&(mouseY>height-quit.height)&&(mouseX<width/2+quit.width*2)&&(mouseY<height)) {
       exit();
     }
   }
-  if ((mouseX>width-instructions.width)&&(mouseY>0)&&(mouseX<width)&&(mouseY<instructions.height))
-  {
+  if ((mouseX>width-instructions.width)&&(mouseY>0)&&(mouseX<width)&&(mouseY<instructions.height)) {
     instructions2= loadImage("instructions2.png");
     image(instructions2, width/2-instructions2.width/2, height/2-instructions2.height/2);
   }
@@ -220,14 +218,14 @@ void updateObstacles() {
 }
 
 void showObstacles() {
+  for (int i=0; i < clouds.size(); i++) {
+    clouds.get(i).show();
+  }
   for (int i = 0; i < obstacles.size(); i++) {
     obstacles.get(i).show();
   }
   for (int i=0; i < birds.size(); i++) {
     birds.get(i).show();
-  }
-  for (int i=0; i < clouds.size(); i++) {
-    clouds.get(i).show();
   }
 }
 
@@ -236,9 +234,10 @@ void addObstacle(float pb) {
     clouds.add(new Cloud(floor(random(2))));
   }
   if (random(100) < pb) { //Probabilidade de aparecer um obstáculo vai aumentando de nível para nível
-    obstacles.add(new Obstacle(floor(random(2))));//Dos 3 tipos de obstáculos possíveis seleciona 1
+    //obstacles.add(new Obstacle(floor(random(2)))); //Dos 3 tipos de obstáculos possíveis seleciona 1
+    birds.add(new Bird(floor(random(4))));
   } else {
-    birds.add(new Bird(floor(random(5))));
+    birds.add(new Bird(floor(random(4))));
   }
   randomAddition = floor(random(50));
   obstacleTimer = 0;

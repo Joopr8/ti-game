@@ -12,29 +12,26 @@ class Bird {
     switch(t) {
     case 0: 
       posY = 150; //mais baixo
-      image(obs1, w,h);
+      image(obs1, w, h);
       break;
     case 1: 
-      posY = 160;
+      posY = 150;
       break;
     case 2: 
-      posY = 170;
+      posY = 150;
       break;
     case 3: 
-      posY = 175;
-      break;
-    case 4: 
-      posY = 180;
+      posY = 150;
       break;
     }
   }
 
   void show() {
-    println(flapCount);
+    imageMode(CORNER);
     flapCount++;
     if (flapCount <= 10) {
       image(obs1, posX - obs1.width / 2, height - groundHeight - (posY + obs1.height), w, h);
-    }
+    } 
     if (flapCount <= 20 && flapCount > 10 ) {
       image(obs2, posX - obs2.width / 2, height - groundHeight - (posY + obs2.height), w, h);
     }
@@ -50,7 +47,6 @@ class Bird {
     if (flapCount > 50) {
       flapCount = 0;
     }
-
   }
 
   void move(float speed) {

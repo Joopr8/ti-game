@@ -12,9 +12,11 @@ class Cloud {
     switch(type) {
     case 0:
       image(cloud, posX, 100);
+      image(montanhas, posX+250, 330);
       break;
     case 1:
       image(cloud, posX, 200);
+      image(montanhas,posX+450, 330);
       break;
     }
   }

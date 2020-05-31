@@ -26,6 +26,7 @@ class Player {
   }
 
   void show() {
+    println(w);
     imageMode(CORNER);
     if (duck && posY == 0) { //quando o jogador está baixo
       if (runCount < 0) {
@@ -62,12 +63,12 @@ class Player {
     }
 
     for (int i = 0; i < obstacles.size(); i++) {
-      if (dead) {
-        if (obstacles.get(i).collided(playerXpos, posY + h_low/2, w_low*0.5, h_low)) {
+      if (dead) { //== false
+        if (obstacles.get(i).collided(playerXpos, posY + h_low/2, w_low, h_low)) {
           bump = true;
         }
       } else {
-        if (obstacles.get(i).collided(playerXpos, posY + h/2, w*0.5, h)) {
+        if (obstacles.get(i).collided(playerXpos, posY + h/2, w * 0.2, h)) {
           bump = true;
         }
       }
@@ -79,7 +80,7 @@ class Player {
           bump = true;
         }
       } else {
-        if (birds.get(i).collided(playerXpos, posY + h/2 * 0.5, w, h)) {
+        if (birds.get(i).collided(playerXpos, posY + h/2, w  * 0.5, h)) {
           bump = true;
         }
       }
