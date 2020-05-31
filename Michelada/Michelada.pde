@@ -66,11 +66,11 @@ void initGame() {
     if ((mouseX> width/2-play.width/2) && (mouseY > height -  1.5*play.height) && (mouseX<width/2+play.width/2 )&& (mouseY<height)) {
       state = "play";
     }
-    if ((mouseX>width/2+quit.width)&&(mouseY>height-quit.height)&&(mouseX<width/2+quit.width*2)&&(mouseY<height)) {
+    if ((mouseX>width - quit.width - 20)&&(mouseY>height-50)&&(mouseX<width - quit.width - 20+quit.width)&&(mouseY<height-50+quit.height)) {
       exit();
     }
   }
-  if ((mouseX>width-instructions.width)&&(mouseY>0)&&(mouseX<width)&&(mouseY<instructions.height)) {
+  if ((mouseX>width-instructions.width-20)&&(mouseY>25)&&(mouseX<width-instructions.width-20+instructions.width)&&(mouseY<instructions.height+25)) {
     instructions2= loadImage("instructions2.png");
     image(instructions2, width/2-instructions2.width/2, height/2-instructions2.height/2);
   }
@@ -145,15 +145,23 @@ void game_display() {
   fill(0);
   textAlign(LEFT);
   textFont(f);
-  imageMode(CORNER);
-  image(square2, 10, 10);
-  text("Level: " + lvl, 600, 60);
   imageMode(CENTER);
-  image(square, width/2, 550);
-  textAlign(CENTER);
-  text("Lives: " + lf, width/2, 560);
+  image(square2, width/2, 10+square2.height);
   textAlign(CORNER);
-  text("High Score: " + highScore, 60, 60);
+  text("Level: " + lvl, width/2+square2.width/4, 60+square2.height/2);
+  imageMode(CENTER);
+  image(square, width/2, height-height/9);
+  textAlign(CENTER);
+  text("Lives: " + lf, width/2, height-height/9+10);
+  textAlign(CORNER);
+  text("High Score: " + highScore, width/2-square2.width/2+50, 60+square2.height/2);
+  imageMode(CORNER);
+  image(quit, width - quit.width - 20, height-50 );
+  if(mousePressed){ 
+    if ((mouseX>width - quit.width - 20)&&(mouseY>height-50)&&(mouseX<width - quit.width - 20+quit.width)&&(mouseY<height-50+quit.height)) {
+      exit();
+    }
+  }
 }
 
 void level() {
