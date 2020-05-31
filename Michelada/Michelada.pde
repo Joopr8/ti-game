@@ -1,4 +1,4 @@
-PImage player, p_low, player1, bird, p_low2, backgroundimg, play, quit, instructions, instructions2, cloud, obs1, obs2, obs3, obs4, obs5, lvl1, gif, gif2, gif3;
+PImage player, p_low, player1, bird, p_low2, backgroundimg, play, quit, instructions, instructions2, cloud, obs1, obs2, obs3, obs4, obs5, lvl1, lvl2, lvl3, lvl4, lvl5, gif, gif2, gif3, square, square2;
 ArrayList<Obstacle> obstacles = new ArrayList<Obstacle>();
 ArrayList<Bird> birds = new ArrayList<Bird>();
 ArrayList<Cloud> clouds = new ArrayList<Cloud>();
@@ -38,11 +38,17 @@ void setup() {
   obs4 = loadImage("obs4.png");
   obs5 = loadImage("obs5.png");
   lvl1 = loadImage("popup1.png");
+  lvl2 = loadImage("popup2.png");
+  lvl3 = loadImage("popup3.png");
+  lvl4 = loadImage("popup4.png");
+  lvl5 = loadImage("popup5.png");
   pl = new Player();
-  f = createFont("ArcadeClassic", 30);
+  f = loadFont("ArcadeClassic.vlw");
   gif = loadImage("gif.png");
   gif2 = loadImage("gif2.png");
   gif3 = loadImage("gif3.png");
+  square = loadImage("square.png");
+  square2 = loadImage("square2.png");
 }
 
 void initGame() {
@@ -77,7 +83,7 @@ void draw() {
     game_display();
     updateObstacles(); 
     level();
-    println(pb);
+    //println(pb);
 
     if (pl.score > highScore) { //Upadate do melhor resultad
       highScore = pl.score;
@@ -136,24 +142,54 @@ void game_display() {
   textSize(20);
   fill(0);
   textAlign(LEFT);
-    textFont(f);
+  textFont(f);
 
+  imageMode(CORNER);
+  image(square2, 10, 10);
   //text("Score: " + pl.score, 5, 20);
-  text("Level: " + lvl, 5, 20);
-  text("Lifes: " + lf, 5, 40);
-  text("High Score: " + highScore, width - (220 + (str(highScore).length() * 10)), 20);
+  text("Level: " + lvl, 50, 60);
+  imageMode(CENTER);
+  image(square, width/2, 550);
+  textAlign(CENTER);
+  text("Lives: " + lf, width/2, 560);
+  //imageMode(CORNER);
+  //image(square, width - (140 + (str(highScore).length() * 10)), 10,square.width*1.5,square.height*1.5);
+  //image(square2, width - 335, 10);
+  textAlign(CORNER);
+  text("High Score:" + highScore, width - 300, 60);
+  //textAlign(CORNER);
+  //text("High Score: " + highScore, width - (220 + (str(highScore).length() * 10)), 50);
 }
 
 void level() {
   for (int i=1; i<20; i++) {
-    if ( pl.score == 400*i) {
+    if ( pl.score == 2000*i) {
       noLoop();
       level_up = true;
-      imageMode(CENTER);
-      image(lvl1, width/2, height/2);
+      
       lvl++;
       speed++;
       pb=pb+2*i;
+      if(lvl==1){
+      imageMode(CENTER);
+      image(lvl1, width/2, height/2,lvl1.width/1.2,lvl1.height/1.2);
+      }
+      else if (lvl==2){
+        imageMode(CENTER);
+      image(lvl2, width/2, height/2,lvl2.width/1.2,lvl2.height/1.2);
+      }
+      else if(lvl==3){
+        imageMode(CENTER);
+      image(lvl3, width/2, height/2,lvl3.width/1.2,lvl3.height/1.2);
+      }
+      else if(lvl==4){
+      imageMode(CENTER);
+      image(lvl4, width/2, height/2,lvl4.width/1.2,lvl4.height/1.2);
+      }
+      else if(lvl==5){
+      imageMode(CENTER);
+      image(lvl5, width/2, height/2,lvl5.width/1.2,lvl5.height/1.2);
+      }
     }
   }
 }
@@ -178,11 +214,11 @@ void updateObstacles() {
       lf -= 1;
       if(lf==2){
       imageMode(CENTER);
-      image(gif,width/2, height/2);
+      image(gif,width/2, height/2,gif.width/1.5,gif.height/1.5);
       }
       else if (lf==1){
         imageMode(CENTER);
-      image(gif2,width/2, height/2);
+      image(gif2,width/2, height/2,gif2.width/1.5,gif2.height/1.5);
       }
       //
     }
@@ -191,7 +227,7 @@ void updateObstacles() {
     pl.dead = true;
     pl.bump = false;
     imageMode(CENTER);
-    image(gif3,width/2, height/2); 
+    image(gif3,width/2, height/2,gif3.width/1.5,gif3.height/1.5); 
     //textSize(32);
     //textAlign(CENTER);   
     //fill(0);
