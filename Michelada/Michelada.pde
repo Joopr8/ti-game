@@ -143,52 +143,40 @@ void game_display() {
   fill(0);
   textAlign(LEFT);
   textFont(f);
-
   imageMode(CORNER);
   image(square2, 10, 10);
-  //text("Score: " + pl.score, 5, 20);
-  text("Level: " + lvl, 50, 60);
+  text("Level: " + lvl, 60, 60);
   imageMode(CENTER);
   image(square, width/2, 550);
   textAlign(CENTER);
   text("Lives: " + lf, width/2, 560);
-  //imageMode(CORNER);
-  //image(square, width - (140 + (str(highScore).length() * 10)), 10,square.width*1.5,square.height*1.5);
-  //image(square2, width - 335, 10);
   textAlign(CORNER);
-  text("High Score:" + highScore, width - 300, 60);
-  //textAlign(CORNER);
-  //text("High Score: " + highScore, width - (220 + (str(highScore).length() * 10)), 50);
+  text("High Score: " + highScore, width - 350, 60);
 }
 
 void level() {
   for (int i=1; i<20; i++) {
     if ( pl.score == 2000*i) {
       noLoop();
-      level_up = true;
-      
+      level_up = true;   
       lvl++;
       speed++;
       pb=pb+2*i;
-      if(lvl==1){
-      imageMode(CENTER);
-      image(lvl1, width/2, height/2,lvl1.width/1.2,lvl1.height/1.2);
-      }
-      else if (lvl==2){
+      if (lvl==1) {
         imageMode(CENTER);
-      image(lvl2, width/2, height/2,lvl2.width/1.2,lvl2.height/1.2);
-      }
-      else if(lvl==3){
+        image(lvl1, width/2, height/2, lvl1.width/1.2, lvl1.height/1.2);
+      } else if (lvl==2) {
         imageMode(CENTER);
-      image(lvl3, width/2, height/2,lvl3.width/1.2,lvl3.height/1.2);
-      }
-      else if(lvl==4){
-      imageMode(CENTER);
-      image(lvl4, width/2, height/2,lvl4.width/1.2,lvl4.height/1.2);
-      }
-      else if(lvl==5){
-      imageMode(CENTER);
-      image(lvl5, width/2, height/2,lvl5.width/1.2,lvl5.height/1.2);
+        image(lvl2, width/2, height/2, lvl2.width/1.2, lvl2.height/1.2);
+      } else if (lvl==3) {
+        imageMode(CENTER);
+        image(lvl3, width/2, height/2, lvl3.width/1.2, lvl3.height/1.2);
+      } else if (lvl==4) {
+        imageMode(CENTER);
+        image(lvl4, width/2, height/2, lvl4.width/1.2, lvl4.height/1.2);
+      } else if (lvl==5) {
+        imageMode(CENTER);
+        image(lvl5, width/2, height/2, lvl5.width/1.2, lvl5.height/1.2);
       }
     }
   }
@@ -212,13 +200,12 @@ void updateObstacles() {
     if (pl.bump == true) {
       noLoop();
       lf -= 1;
-      if(lf==2){
-      imageMode(CENTER);
-      image(gif,width/2, height/2,gif.width/1.5,gif.height/1.5);
-      }
-      else if (lf==1){
+      if (lf==2) {
         imageMode(CENTER);
-      image(gif2,width/2, height/2,gif2.width/1.5,gif2.height/1.5);
+        image(gif, width/2, height/2, gif.width/1.5, gif.height/1.5);
+      } else if (lf==1) {
+        imageMode(CENTER);
+        image(gif2, width/2, height/2, gif2.width/1.5, gif2.height/1.5);
       }
       //
     }
@@ -227,13 +214,7 @@ void updateObstacles() {
     pl.dead = true;
     pl.bump = false;
     imageMode(CENTER);
-    image(gif3,width/2, height/2,gif3.width/1.5,gif3.height/1.5); 
-    //textSize(32);
-    //textAlign(CENTER);   
-    //fill(0);
-    //text("YOU DEAD! GIT GUD SCRUB!", width/2, 200);
-    //textSize(16);
-    //text("(Press 'r' to restart!)", width/2, 230);
+    image(gif3, width/2, height/2, gif3.width/1.5, gif3.height/1.5); 
     noLoop();
   }
 }
