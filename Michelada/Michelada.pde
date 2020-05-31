@@ -16,13 +16,10 @@ String state="menu";
 int lf = 3;
 boolean level_up = false;
 PFont f;
-
-
 Player pl;
 
 void setup() {
   fullScreen();
-  //size(800, 600);
   frameRate(60);
   player1 = loadImage("andar2.png");
   player = loadImage("andar1.png");
@@ -60,8 +57,8 @@ void initGame() {
   image(backgroundimg, width/2, height/2, backgroundimg.width*1.7, backgroundimg.height*1.7 );
   image(play, width/2, height-play.height);
   imageMode(CORNER);
-  image(quit, width - quit.width - 20, height-50 );
-  image(instructions, width - instructions.width - 20 , 25);
+  image(quit, width - quit.width - 20, height-50);
+  image(instructions, width - instructions.width - 20, 25);
   if (mousePressed) {
     if ((mouseX> width/2-play.width/2) && (mouseY > height -  1.5*play.height) && (mouseX<width/2+play.width/2 )&& (mouseY<height)) {
       state = "play";
@@ -72,7 +69,8 @@ void initGame() {
   }
   if ((mouseX>width-instructions.width-20)&&(mouseY>25)&&(mouseX<width-instructions.width-20+instructions.width)&&(mouseY<instructions.height+25)) {
     instructions2= loadImage("instructions2.png");
-    image(instructions2, width/2-instructions2.width/2, height/2-instructions2.height/2);
+    imageMode(CENTER);
+    image(instructions2, width/2, height/2, instructions2.width*2,instructions2.height*2);
   }
 }
 
@@ -157,7 +155,7 @@ void game_display() {
   text("High Score: " + highScore, width/2-square2.width/2+50, 60+square2.height/2);
   imageMode(CORNER);
   image(quit, width - quit.width - 20, height-50 );
-  if(mousePressed){ 
+  if (mousePressed) { 
     if ((mouseX>width - quit.width - 20)&&(mouseY>height-50)&&(mouseX<width - quit.width - 20+quit.width)&&(mouseY<height-50+quit.height)) {
       exit();
     }
@@ -166,7 +164,7 @@ void game_display() {
 
 void level() {
   for (int i=1; i<20; i++) {
-    if ( pl.score == 2000*i ) {
+    if ( pl.score == 4000*i ) {
       noLoop();
       level_up = true;   
       lvl++;
@@ -174,24 +172,23 @@ void level() {
       pb=pb+2*i;
       if (lvl==1) {
         imageMode(CENTER);
-        image(lvl1, width/2, height/2, lvl1.width/1.2, lvl1.height/1.2);
-      } else if (lvl==2) {
+        image(lvl1, width/2, height/2, lvl1.width*1.5, lvl1.height*1.5);
+      } else if (lvl==2) {  
         imageMode(CENTER);
-        image(lvl2, width/2, height/2, lvl2.width/1.2, lvl2.height/1.2);
+        image(lvl2, width/2, height/2, lvl2.width*1.5, lvl2.height*1.5);
       } else if (lvl==3) {
         imageMode(CENTER);
-        image(lvl3, width/2, height/2, lvl3.width/1.2, lvl3.height/1.2);
+        image(lvl3, width/2, height/2, lvl3.width*1.5, lvl3.height*1.5);
       } else if (lvl==4) {
         imageMode(CENTER);
-        image(lvl4, width/2, height/2, lvl4.width/1.2, lvl4.height/1.2);
+        image(lvl4, width/2, height/2, lvl4.width*1.5, lvl4.height*1.5);
       } else if (lvl==5) {
         imageMode(CENTER);
-        image(lvl5, width/2, height/2, lvl5.width/1.2, lvl5.height/1.2);
+        image(lvl5, width/2, height/2, lvl5.width*1.5, lvl5.height*1.5);
       }
     }
   }
 }
-
 
 void updateObstacles() {
   showObstacles();
@@ -254,8 +251,6 @@ void addObstacle(float pb) {
   obstacleTimer = 0;
 }
 
-
-
 void moveObstacles() {
   for (int i = 0; i < obstacles.size(); i++) {
     obstacles.get(i).move(speed);
@@ -273,7 +268,7 @@ void moveObstacles() {
   }
   for (int i = 0; i < clouds.size(); i++) {
     clouds.get(i).move(speed);
-    if (clouds.get(i).posX < -playerXpos*10) { 
+    if (clouds.get(i).posX < -playerXpos*20) { 
       clouds.remove(i);
       i--;
     }
