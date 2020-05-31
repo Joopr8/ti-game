@@ -7,11 +7,11 @@ int minTimeBetObs = 60;
 int randomAddition = 0;
 int groundCounter = 0;
 float speed = 10;
-int groundHeight = 100;
+int groundHeight = 200;
 int playerXpos = 100;
 int highScore = 0;
 int lvl=0;
-float pb=70;
+float pb=50;
 String state="menu";
 int lf = 3;
 boolean level_up = false;
@@ -21,7 +21,8 @@ PFont f;
 Player pl;
 
 void setup() {
-  size(800, 600);
+  fullScreen();
+  //size(800, 600);
   frameRate(60);
   player1 = loadImage("andar2.png");
   player = loadImage("andar1.png");
@@ -55,12 +56,14 @@ void setup() {
 void initGame() {
   background(241, 90, 36);
   backgroundimg = loadImage("background.png");
-  image(backgroundimg, 0, 0);
-  image(play, width/2-play.width/2, height-play.height); 
-  image(quit, width/2+quit.width, height-quit.height);
-  image(instructions, width-instructions.width, 0);
+  imageMode(CENTER);
+  image(backgroundimg, width/2, height/2, backgroundimg.width*1.7, backgroundimg.height*1.7 );
+  image(play, width/2, height-play.height);
+  imageMode(CORNER);
+  image(quit, width - quit.width - 20, height-50 );
+  image(instructions, width - instructions.width - 20 , 25);
   if (mousePressed) {
-    if ((mouseX>width/2-play.width/2)&&(mouseY>height-play.height)&&(mouseX<width/2+play.width/2)&&(mouseY<height)) {
+    if ((mouseX> width/2-play.width/2) && (mouseY > height -  1.5*play.height) && (mouseX<width/2+play.width/2 )&& (mouseY<height)) {
       state = "play";
     }
     if ((mouseX>width/2+quit.width)&&(mouseY>height-quit.height)&&(mouseX<width/2+quit.width*2)&&(mouseY<height)) {
@@ -81,9 +84,7 @@ void draw() {
     game_display();
     updateObstacles(); 
     level();
-    //println(pb);
-
-    if (pl.score > highScore) { //Upadate do melhor resultad
+    if (pl.score > highScore) {           //Upadate do melhor resultad
       highScore = pl.score;
     }
   }
@@ -94,7 +95,8 @@ void keyPressed() {
   case ' ': 
     pl.jump();
     break;
-  case 'b': 
+  case 'b':
+  case 'B':
     if (!pl.dead) {
       pl.ducking(true);
     }  
@@ -104,12 +106,14 @@ void keyPressed() {
 
 void keyReleased() {
   switch(key) {
-  case 'b': 
+  case 'b':
+  case 'B':
     if (!pl.dead) {
       pl.ducking(false);
     }
     break;
-  case 'r': 
+  case 'r':
+  case 'R':
     if (pl.dead) {
       reset();
       loop();
@@ -143,18 +147,18 @@ void game_display() {
   textFont(f);
   imageMode(CORNER);
   image(square2, 10, 10);
-  text("Level: " + lvl, 60, 60);
+  text("Level: " + lvl, 600, 60);
   imageMode(CENTER);
   image(square, width/2, 550);
   textAlign(CENTER);
   text("Lives: " + lf, width/2, 560);
   textAlign(CORNER);
-  text("High Score: " + highScore, width - 350, 60);
+  text("High Score: " + highScore, 60, 60);
 }
 
 void level() {
   for (int i=1; i<20; i++) {
-    if ( pl.score == 2000*i) {
+    if ( pl.score == 2000*i ) {
       noLoop();
       level_up = true;   
       lvl++;
@@ -185,8 +189,8 @@ void updateObstacles() {
   showObstacles();
   pl.show();
   if (!pl.dead) {
-    obstacleTimer++; //Aumenta desde que o player inicia o jogo
-    if (obstacleTimer > minTimeBetObs + randomAddition) { //Faz a temporização da adição de novos obstáculos
+    obstacleTimer++;       //Aumenta desde que o player inicia o jogo
+    if (obstacleTimer > minTimeBetObs + randomAddition) {           //Faz a temporização da adição de novos obstáculos
       addObstacle(pb);
     }
     groundCounter++;
@@ -205,9 +209,9 @@ void updateObstacles() {
         imageMode(CENTER);
         image(gif2, width/2, height/2, gif2.width/1.5, gif2.height/1.5);
       }
-      //
     }
   } 
+
   if (lf == 0) {
     pl.dead = true;
     pl.bump = false;
@@ -230,18 +234,18 @@ void showObstacles() {
 }
 
 void addObstacle(float pb) {
-  if (random(100) < pb) {
+  if ( random(100) < 50) {
     clouds.add(new Cloud(floor(random(2))));
-  }
-  if (random(100) < pb) { //Probabilidade de aparecer um obstáculo vai aumentando de nível para nível
-    //obstacles.add(new Obstacle(floor(random(2)))); //Dos 3 tipos de obstáculos possíveis seleciona 1
-    birds.add(new Bird(floor(random(4))));
+  } 
+  if (random(100) < pb) {                             //Probabilidade de aparecer um obstáculo vai aumentando de nível para nível
+    obstacles.add(new Obstacle(floor(random(2))));         //Dos 3 tipos de obstáculos possíveis seleciona 1
   } else {
     birds.add(new Bird(floor(random(4))));
   }
   randomAddition = floor(random(50));
   obstacleTimer = 0;
 }
+
 
 
 void moveObstacles() {

@@ -11,14 +11,13 @@ class Bird {
     type = t;
     switch(t) {
     case 0: 
-      posY = 150; //mais baixo
-      image(obs1, w, h);
+      posY = 180; //mais baixo
       break;
     case 1: 
-      posY = 150;
+      posY = 170;
       break;
     case 2: 
-      posY = 150;
+      posY = 160;
       break;
     case 3: 
       posY = 150;
